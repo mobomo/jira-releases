@@ -1,0 +1,37 @@
+description: >
+  Creates a Jira version and assign the provided ticket to it.
+parameters:
+  issue-keys:
+    type: string
+    default: ""
+    description: "Follow this format IK-1,IK-2"
+  release-name:
+    type: string
+    default: ""
+    description: "The release name."
+  set-as-released:
+    type: boolean
+    default: false
+    description: "Mark as released once tickets are assigned."
+  jira-url:
+    default: ""
+    type: string
+    description: 'The Jira Cloud URL'
+  jira-project:
+    default: ""
+    type: string
+    description: 'The Jira project to create the version'
+  jira-auth:
+    type: env_var_name
+    default: JIRA_AUTH
+steps:
+  - run:
+      environment:
+        ISSUE_KEYS: <<parameters.issue-keys>>
+        RELEASE_NAME: <<parameters.release-name>>
+        SET_RELEASED: <<parameters.set-as-released>>
+        JIRA_URL: << parameters.jira-url >>
+        JIRA_PROJECT: << parameters.jira-project >>
+        JIRA_AUTH_TOKEN: "$<< parameters.jira-auth >>"
+      name: Creating Jira release
+      command: <<include(scripts/create.sh)>>
