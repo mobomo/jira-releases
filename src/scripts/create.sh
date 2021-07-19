@@ -3,6 +3,8 @@ set -eu
 
 # VARS EVAL.
 JIRA_TOKEN=$(eval echo "$JIRA_AUTH_TOKEN")
+ISSUE_KEYS=$(eval echo "$ISSUE_KEYS")
+RELEASE_NAME=$(eval echo "$RELEASE_NAME")
 
 # Creating the release.
 NOW=$(date +"%Y-%m-%d")
