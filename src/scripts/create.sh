@@ -4,6 +4,7 @@ set -eu
 # VARS EVAL.
 JIRA_TOKEN=$(eval echo "$JIRA_AUTH_TOKEN")
 
+# Creating the release.
 NOW=$(date +"%Y-%m-%d")
 curl -X POST -H "Authorization: Basic ${JIRA_TOKEN}" \
     -H "Content-Type: application/json" \
