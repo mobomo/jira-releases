@@ -10,7 +10,7 @@ NOW=$(date +"%Y-%m-%d")
 VERSION_ID=$(curl -X GET -H "Authorization: Basic ${JIRA_TOKEN}" \
     -H "Content-Type: application/json" \
     "${JIRA_URL}"/rest/api/2/project/"${JIRA_PROJECT}"/versions \
-    | jq '. | map(. | select(.name=="'"${RELEASE_NAME}"'"))' | jq .[0].id)
+    | jq '. | map(. | select(.name=="'"${RELEASE_NAME}"'"))' | jq .[0].id | tr -d '"')
 echo "Created version ID: $VERSION_ID"
 
 # Releasing version.

@@ -12,7 +12,7 @@ NOW=$(date +"%Y-%m-%d")
 VERSION_ID=$(curl -X POST -H "Authorization: Basic ${JIRA_TOKEN}" \
     -H "Content-Type: application/json" \
     --data '{"name": "'"${RELEASE_NAME}"'","startDate": "'"${NOW}"'","project": "'"${JIRA_PROJECT}"'", "released": false}' \
-    "${JIRA_URL}"/rest/api/2/version | jq .id)
+    "${JIRA_URL}"/rest/api/2/version | jq .id | tr -d '"')
 
 echo "Created version ID: $VERSION_ID"
 
