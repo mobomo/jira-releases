@@ -5,6 +5,7 @@ set -eu
 JIRA_TOKEN=$(eval echo "$JIRA_AUTH_TOKEN")
 ISSUE_KEYS=$(eval echo "$ISSUE_KEYS")
 RELEASE_NAME=$(eval echo "$RELEASE_NAME")
+echo "Version to Assign: $RELEASE_NAME"
 
 # Creating the release.
 NOW=$(date +"%Y-%m-%d")
@@ -18,14 +19,15 @@ add-fix-version() {
   if [ -n "${ISSUE_KEYS}" ]; then
     for issue in ${ISSUE_KEYS//,/ }
       do
+        echo "\n"
         echo "Updating $issue fixVersions field..."
         ## Add (will append to existing ones) ${RELEASE_NAME} to issue fixVersions field.
         curl \
-          -X POST \
+          -X PUT \
           -H "Authorization: Basic ${JIRA_TOKEN}" \
           -H "Content-Type: application/json" \
           --data '{"update":{"fixVersions":[{"add":{"name":"'"${RELEASE_NAME}"'"}}]}}' \
-          "${JIRA_URL}"/rest/api/3/issue/"$issue"
+          "${JIRA_URL}"/rest/api/2/issue/"$issue"
       done
   else
     echo "No issues to update Fix Versions."
