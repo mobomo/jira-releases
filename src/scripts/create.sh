@@ -5,14 +5,16 @@ set -eu
 JIRA_TOKEN=$(eval echo "$JIRA_AUTH_TOKEN")
 ISSUE_KEYS=$(eval echo "$ISSUE_KEYS")
 RELEASE_NAME=$(eval echo "$RELEASE_NAME")
-echo "Version to Assign: $RELEASE_NAME"
+echo "$SET_RELEASED"
 
 # Creating the release.
 NOW=$(date +"%Y-%m-%d")
-curl -X POST -H "Authorization: Basic ${JIRA_TOKEN}" \
+VERSION_ID=$(curl -X POST -H "Authorization: Basic ${JIRA_TOKEN}" \
     -H "Content-Type: application/json" \
     --data '{"name": "'"${RELEASE_NAME}"'","startDate": "'"${NOW}"'","project": "'"${JIRA_PROJECT}"'", "released": false}' \
-    "${JIRA_URL}"/rest/api/2/version
+    "${JIRA_URL}"/rest/api/2/version | jq .id)
+
+echo "Created version ID: $VERSION_ID"
 
 # Jira API calls to update tickets fixed version.
 add-fix-version() {
