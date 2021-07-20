@@ -44,6 +44,6 @@ if [[ "$SET_RELEASED" = 1 ]]; then
     -X PUT \
     -H "Authorization: Basic ${JIRA_TOKEN}" \
     -H "Content-Type: application/json" \
-    --data '{"released": true,"releaseDate": "'"${NOW}"'"}' \
+    --data '{"name":"'"${RELEASE_NAME}"'", "released": "true", "releaseDate": "'"${NOW}"'"}' \
     "${JIRA_URL}"/rest/api/2/version/"$VERSION_ID"
 fi
