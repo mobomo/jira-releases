@@ -19,7 +19,6 @@ add-fix-version() {
   if [ -n "${ISSUE_KEYS}" ]; then
     for issue in ${ISSUE_KEYS//,/ }
       do
-        echo "\n"
         echo "Updating $issue fixVersions field..."
         ## Add (will append to existing ones) ${RELEASE_NAME} to issue fixVersions field.
         curl \
