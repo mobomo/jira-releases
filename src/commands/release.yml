@@ -1,0 +1,27 @@
+description: >
+  Releases a Jira version.
+parameters:
+  release-name:
+    type: string
+    default: ""
+    description: "The release name."
+  jira-url:
+    default: ""
+    type: string
+    description: 'The Jira Cloud URL'
+  jira-project:
+    default: ""
+    type: string
+    description: 'The Jira project to create the version'
+  jira-auth:
+    type: env_var_name
+    default: JIRA_AUTH
+steps:
+  - run:
+      environment:
+        RELEASE_NAME: <<parameters.release-name>>
+        JIRA_URL: << parameters.jira-url >>
+        JIRA_PROJECT: << parameters.jira-project >>
+        JIRA_AUTH_TOKEN: "$<< parameters.jira-auth >>"
+      name: Creating Jira release
+      command: <<include(scripts/release.sh)>>
