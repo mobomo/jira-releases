@@ -1,0 +1,17 @@
+description: >
+  Example of job using the command `create`
+usage:
+  version: 2.1
+  orbs:
+    jira-releases: mobomo/jira-releases@1.0.0
+  jobs:
+    deploy:
+      executor:
+        jira-releases/default
+      steps:
+        - checkout
+        - jira-releases/create:
+            jira-url: "https://your-jira-url"
+            jira-project: "PROJECT NAME"
+            release-name: $CIRCLE_TAG
+            issue-keys: $JIRA_ISSUES # This is a comma separated list of issues

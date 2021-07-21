@@ -7,7 +7,7 @@ parameters:
     description: "Follow this format IK-1,IK-2"
   release-name:
     type: string
-    default: ""
+    default: $CIRCLE_TAG
     description: "The release name."
   set-as-released:
     type: boolean
