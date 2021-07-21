@@ -38,9 +38,9 @@ add-fix-version() {
 
 add-fix-version
 
+# Set released.
 if [[ "$SET_RELEASED" = 1 ]]; then
   echo "Releasing version ${RELEASE_NAME}"
-  echo "${JIRA_URL}/rest/api/2/version/${VERSION_ID}"
   curl \
     -X PUT \
     -H "Authorization: Basic ${JIRA_TOKEN}" \

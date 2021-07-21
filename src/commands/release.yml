@@ -16,6 +16,10 @@ parameters:
   jira-auth:
     type: env_var_name
     default: JIRA_AUTH
+  release-prev:
+    type: boolean
+    default: false
+    description: "Release previous unreleased versions."
 steps:
   - run:
       environment:
@@ -23,5 +27,6 @@ steps:
         JIRA_URL: << parameters.jira-url >>
         JIRA_PROJECT: << parameters.jira-project >>
         JIRA_AUTH_TOKEN: "$<< parameters.jira-auth >>"
-      name: Creating Jira release
+        RELEASE_PREV: <<parameters.release-prev>>
+      name: Release Jira Version
       command: <<include(scripts/release.sh)>>
