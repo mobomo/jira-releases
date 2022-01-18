@@ -17,3 +17,23 @@ echo -n 'jira_user_email:jira_api_token' | openssl base64
 Copy the base64 encoded string and paste it in the Environment Variable `Value` field:
 
 ![Setting CircleCI Env Vars](assets/cci_env_vars.png)
+
+## Usage example
+
+```
+version: 2.1
+orbs:
+  jira-releases: mobomo/jira-releases@1.0.0
+
+[...]
+
+  set-released:
+    docker:
+      - image: makocchi/alpine-git-curl-jq:latest
+    steps:
+      - jira-releases/release:
+          release-name: $CIRCLE_TAG
+          jira-url: "https://jira.project.url"
+          jira-project: "KEY"
+          release-prev: true
+```
