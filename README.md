@@ -4,7 +4,6 @@
 
 This Orb helps you creating and releasing your Jira project versions.
 
-
 **NOTE:** To avoid setting the auth token in your config files, you must define it as an CircleCI Environment Variable.
 
 Using the CircleCI UI, you can go to your Project > Project Settings > Environment Values > Add Environment Value called
